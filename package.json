@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "local": "docker compose up -d && concurrently \"npm run dev\" \"php artisan serve\"  "
     },
     "devDependencies": {
         "@inertiajs/vue3": "^2.0.0",
