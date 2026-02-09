@@ -51,7 +51,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $fieldsLabels = Project::fieldLabels();
+        return Inertia::render('Projects/Edit', [
+            'project' => $project,
+            'fieldsLabels' => $fieldsLabels,
+        ]);
     }
 
     /**
@@ -59,7 +63,8 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->update($request->all());
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -67,6 +72,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('projects.index');
     }
 }

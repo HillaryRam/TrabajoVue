@@ -2,6 +2,7 @@
 import Layouts from '@/Layouts/Layouts.vue';
 import { ref } from 'vue';
 import { computed } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     projects: Object,
@@ -29,6 +30,15 @@ const sort = (field) => { //funcion para ordenar
     }
 }
 
+const destroy = (id) => { //funcion para eliminar
+    if (!confirm('¿Estas seguro de eliminar este proyecto?')) return 0;
+    router.delete(route('projects.destroy', id));
+}
+
+const edit = (id) => { //funcion para editar
+    router.get(route('projects.edit', id));
+}
+
 
 
 </script>
@@ -43,14 +53,19 @@ const sort = (field) => { //funcion para ordenar
             {{ label }}
             <span v-if="fieldOrder.value === field" class="cursor-pointer">{{ ascendente.value ? '↑' : '↓' }}</span>
         </th>
-
+        <th colspan="2"></th>
       </tr>
     </thead>
     <tbody>
       <!-- row 1 -->
       <tr v-for="project in projects" :key="project.id">
         <td v-for="(label, field) in fieldsLabels" :key="field">
-            {{ project[field] }}</td>
+            {{ project[field] }}
+        </td>
+        <td>
+            <button @click="edit(project.id)" class="btn btn-primary cursor-pointer">Editar</button>
+            <button @click="destroy(project.id)" class="btn btn-error cursor-pointer">Eliminar</button>
+        </td>
       </tr>
     </tbody>
   </table>
