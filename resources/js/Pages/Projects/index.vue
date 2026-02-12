@@ -43,6 +43,10 @@ const edit = (id) => { //funcion para editar
     router.get(route('projects.edit', id));
 }
 
+const add = () => { //funcion para añadir
+    router.get(route('projects.create'));
+}
+
 
 
 </script>
@@ -50,6 +54,7 @@ const edit = (id) => { //funcion para editar
 <template>
     <layouts>
         <div class="overflow-x-auto h-96">
+            <h1><button class="btn btn-primary" @click="add">Añadir Proyecto</button></h1>
             <table class="table table-zebra">
     <thead>
     <tr>
