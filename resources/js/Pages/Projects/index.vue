@@ -1,3 +1,7 @@
+<template>
+    <Table :rows="rows" :fieldAsnLabel="fieldAsnLabel" :resourde="Projects"></Table>
+</template>
+
 <script setup>
 import Layouts from '@/Layouts/Layouts.vue';
 import { ref } from 'vue';

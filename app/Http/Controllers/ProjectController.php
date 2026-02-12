@@ -27,7 +27,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $fieldsLabels = Project::fieldLabels();
+        return Inertia::render('Projects/Create', [
+            'fieldsLabels' => $fieldsLabels,
+        ]);
     }
 
     /**
@@ -35,7 +38,8 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $project = Project::create($request->validated());
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -43,7 +47,11 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $fieldsLabels = Project::fieldLabels();
+        return Inertia::render('Projects/Show', [
+            'project' => $project,
+            'fieldsLabels' => $fieldsLabels,
+        ]);
     }
 
     /**
