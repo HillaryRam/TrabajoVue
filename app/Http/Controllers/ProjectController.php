@@ -17,8 +17,8 @@ class ProjectController extends Controller
         $projects = Project::all();
         $fieldsLabels = Project::fieldLabels();
         return Inertia::render('Projects/Index', [
-            'projects' => $projects,
-            'fieldsLabels' => $fieldsLabels,
+            'rows' => $projects,
+            'fields' => $fieldsLabels,
         ]);
     }
 
