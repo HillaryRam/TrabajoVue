@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\UserController;
 
 Route::get("cronos", function () {
     return Inertia::render("Cronometro");
@@ -22,9 +24,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', MainController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,5 +35,11 @@ Route::middleware('auth')->group(function () {
 Route::get("projects", function () {
     return Inertia::render("Projects/Index");
 });
+
+Route::get("students", [UserController::class, "getStudents"])->name("students.index");
+
+Route::get("teachers", [UserController::class, "getTeachers"])->name("teachers.index");
+
+
 
 require __DIR__ . '/auth.php';

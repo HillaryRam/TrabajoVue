@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -62,5 +63,21 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getStudents()
+    {
+        $students = User::role('estudiante')->get();
+        return Inertia::render('Students/Index', [
+            'students' => $students
+        ]);
+    }
+
+    public function getTeachers()
+    {
+        $teachers = User::role('profesor')->get();
+        return Inertia::render('Teachers/Index', [
+            'teachers' => $teachers
+        ]);
     }
 }

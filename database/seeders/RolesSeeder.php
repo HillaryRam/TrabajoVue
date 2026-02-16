@@ -16,13 +16,13 @@ class RolesSeeder extends Seeder
             'name' => 'admin',
         ]);
         Role::create([
-            'name' => 'student',
+            'name' => 'estudiante',
         ]);
         Role::create([
-            'name' => 'teacher',
+            'name' => 'profesor',
         ]);
         Role::create([
-            'name' => 'guest',
+            'name' => 'invitado',
         ]);
         //
     }
