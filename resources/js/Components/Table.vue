@@ -1,22 +1,18 @@
-<template>
-    <Table :rows="projects" :labels="labels" :resource="Projects"></Table>
-</template>
-
 <script setup>
-import Layouts from '@/Layouts/Layouts.vue';
+
 import { ref } from 'vue';
 import { computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
-    fiels: Object,
+    fields: Object,
     rows: Array,
     model: Object,
     
 });
 
 const ascendente = ref(false);
-const fieldOrder = ref(Object.keys(props.fieldsLabels)[0]);
+const fieldOrder = ref(Object.keys(props.fields)[0]);
 
 const rowsOrdered = computed(() =>{
     return [...props.rows].sort((a,b)=>{
@@ -39,23 +35,20 @@ const sort = (field) => { //funcion para ordenar
 
 const destroy = (id) => { //funcion para eliminar
     if (!confirm('¿Estas seguro de eliminar este proyecto?')) return 0;
-    router.delete(props.model.routes.delete(id)); //llama a la funcion delete del modelo del archivo projectResource.js
+    router.delete(route(props.model.routes.delete, id));
 }
 
 const edit = (id) => { //funcion para editar
-    router.get(props.model.routes.edit(id)); //llama a la funcion edit del modelo del archivo projectResource.js
+    router.get(route(props.model.routes.edit, id));
 }
 
 const add = () => { //funcion para añadir
-    router.get(props.model.routes.create()); //llama a la funcion create del modelo del archivo projectResource.js
+    router.get(route(props.model.routes.create));
 }
-
-
 
 </script>
 
 <template>
-    <layouts>
         <div class="overflow-x-auto h-96">
             <h1><button class="btn btn-primary" @click="add">Añadir {{props.model.name}}</button></h1>
             <table class="table table-zebra">
@@ -63,7 +56,7 @@ const add = () => { //funcion para añadir
     <tr>
         <th @click="sort(field)"  v-for="(label, field) in fields" :key="field">
             {{ label }}
-            <span v-if="fieldOrder.value === field" class="cursor-pointer">{{ ascendente.value ? '↑' : '↓' }}</span>
+            <span v-if="fieldOrder === field" class="cursor-pointer">{{ ascendente ? '↑' : '↓' }}</span>
         </th>
         <th colspan="2"></th>
       </tr>
@@ -75,14 +68,13 @@ const add = () => { //funcion para añadir
             {{ row[key] }}
         </td>
         <td>
-            <button @click="router.get(props.model.routes.edit(row.id))" class="btn btn-primary cursor-pointer">Editar</button>
+            <button @click="edit(row.id)" class="btn btn-primary cursor-pointer">Editar</button>
         </td>
         <td>
-            <button @click="router.delete(props.model.routes.delete(row.id))" class="btn btn-error cursor-pointer">Eliminar</button>
+            <button @click="destroy(row.id)" class="btn btn-error cursor-pointer">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-</layouts>
 </template>

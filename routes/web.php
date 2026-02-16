@@ -40,6 +40,8 @@ Route::get("students", [UserController::class, "getStudents"])->name("students.i
 
 Route::get("teachers", [UserController::class, "getTeachers"])->name("teachers.index");
 
+Route::resource('users', UserController::class);
+
 
 
 require __DIR__ . '/auth.php';

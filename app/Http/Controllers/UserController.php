@@ -22,54 +22,48 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Users/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserRequest $request)
     {
-        //
+        User::create($request->validated());
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(User $user)
     {
-        //
+        return Inertia::render('Users/Edit', [
+            'user' => $user
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->back();
     }
 
     public function getStudents()
     {
         $students = User::role('estudiante')->get();
         return Inertia::render('Students/Index', [
-            'students' => $students
+            'students' => $students,
+            'fields' => ['name' => 'Nombre', 'email' => 'Email'],
+            'model' => [
+                'name' => 'student',
+                'routes' => [
+                    'create' => 'users.create',
+                    'edit' => 'users.edit',
+                    'delete' => 'users.destroy'
+                ]
+            ]
         ]);
     }
 
@@ -77,7 +71,16 @@ class UserController extends Controller
     {
         $teachers = User::role('profesor')->get();
         return Inertia::render('Teachers/Index', [
-            'teachers' => $teachers
+            'teachers' => $teachers,
+            'fields' => ['name' => 'Nombre', 'email' => 'Email'],
+            'model' => [
+                'name' => 'teacher',
+                'routes' => [
+                    'create' => 'users.create',
+                    'edit' => 'users.edit',
+                    'delete' => 'users.destroy'
+                ]
+            ]
         ]);
     }
 }

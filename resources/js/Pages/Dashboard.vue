@@ -34,7 +34,8 @@ defineProps({
                     :title="card.title" 
                     :description="card.description"
                     :img="card.img" 
-                    :action="card.action" 
+                    :action="card.action"
+                    :url="card.url"
                 />
             </div>
         </div>

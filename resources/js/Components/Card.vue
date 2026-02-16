@@ -1,10 +1,12 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 const props = defineProps({
     img: String,
     title: String,
     description: String,
     action: String,
-    
+    url: String,
 })
 </script>
 
@@ -17,9 +19,8 @@ const props = defineProps({
             <h2 class="card-title">{{ props.title }}</h2>
             <p>{{ props.description }}</p>
             <div class="card-actions justify-end">
-                <button class="btn btn-primary">{{ props.action }}</button>
+                <Link :href="props.url" class="btn btn-primary">{{ props.action }}</Link>
             </div>
         </div>
     </div>
 </template>
-    

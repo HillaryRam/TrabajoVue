@@ -18,6 +18,7 @@ class MainController extends Controller
                 "description" => "Mostrar lista de profesores",
                 "img" => "img/profesores.png",
                 "action" => "teachers",
+                "url" => route('teachers.index')
 
             ],
 
@@ -25,28 +26,32 @@ class MainController extends Controller
                 "title" => "Alumnos",
                 "description" => "Mostrar lista de alumnos",
                 "img" => "img/estudiantes.png",
-                "action" => "students"
+                "action" => "students",
+                "url" => route('students.index')
             ],
 
             "users" => [
                 "title" => "Usuarios",
                 "description" => "Mostrar lista de usuarios",
                 "img" => "img/usuario.png",
-                "action" => "users"
+                "action" => "users",
+                "url" => "#"
             ],
 
             "projects" => [
                 "title" => "Proyectos",
                 "description" => "Mostrar lista de proyectos",
                 "img" => "img/proyectos.png",
-                "action" => "projects"
+                "action" => "projects",
+                "url" => "/projects"
             ],
 
             "courses" => [
                 "title" => "Cursos",
                 "description" => "Mostrar lista de cursos",
                 "img" => "img/cursos.png",
-                "action" => "courses"
+                "action" => "courses",
+                "url" => "#"
             ],
 
         ];
