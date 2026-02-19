@@ -11,18 +11,14 @@ Route::get("cronos", function () {
     return Inertia::render("Cronometro");
 });
 
-Route::get("main", function () {
-    return Inertia::render("Main");
-});
-
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
+Route::get('/main', function () {
+    return Inertia::render('Main', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('main');
 
 Route::get('/dashboard', MainController::class)->middleware(['auth', 'verified'])->name('dashboard');
 

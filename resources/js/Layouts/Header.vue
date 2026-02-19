@@ -1,9 +1,7 @@
 
 
 <script setup>
-import { computed } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
-const user = computed(() => usePage().props.auth.user); //para obtener el usuario
+import { Link } from '@inertiajs/vue3';
 
 </script>
 
@@ -13,8 +11,8 @@ const user = computed(() => usePage().props.auth.user); //para obtener el usuari
         <!-- si el usuario esta logueado mostrar su nombre y un boton de logout -->
 
       <!-- si el usuario esta logueado mostrar su nombre y un boton de logout -->
-      <div v-if="user" class="flex items-center gap-4">
-        <p class="ml-5 text-xl font-bold">Bienvenido {{ user.name }}</p>
+      <div v-if="$page.props.auth.user" class="flex items-center gap-4">
+        <p class="ml-5 text-xl font-bold">Bienvenido {{ $page.props.auth.user.name }}</p>
         <Link href="logout" method="post">
           <button class="btn btn-primary">Logout</button>
         </Link>

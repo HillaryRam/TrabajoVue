@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Layouts from '@/Layouts/Layouts.vue';
 import { Head } from '@inertiajs/vue3';
 import Table from '@/Components/Table.vue';
 
@@ -13,7 +13,7 @@ const props = defineProps({
 <template>
     <Head title="Usuarios" />
 
-    <AuthenticatedLayout>
+    <Layouts>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Gestión de Usuarios
@@ -32,7 +32,7 @@ const props = defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </Layouts>
 </template>
 
 <style scoped>

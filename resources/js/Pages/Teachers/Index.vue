@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import Layouts from '@/Layouts/Layouts.vue';
 import { Head } from '@inertiajs/vue3';
 import Table from '@/Components/Table.vue';
 
-defineProps({
+const props = defineProps({
     teachers: Array,
     fields: Object,
     model: Object
@@ -13,7 +13,7 @@ defineProps({
 <template>
     <Head title="Profesores" />
 
-    <AuthenticatedLayout>
+    <Layouts>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Tabla de Profesores
@@ -32,5 +32,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </Layouts>
 </template>
