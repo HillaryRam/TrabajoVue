@@ -16,7 +16,7 @@ defineProps({
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Profesores
+                Tabla de Profesores
             </h2>
         </template>
 

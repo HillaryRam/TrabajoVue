@@ -35,7 +35,7 @@ class MainController extends Controller
                 "description" => "Mostrar lista de usuarios",
                 "img" => "img/usuario.png",
                 "action" => "users",
-                "url" => "#"
+                "url" => route('users.index')
             ],
 
             "projects" => [
@@ -43,7 +43,7 @@ class MainController extends Controller
                 "description" => "Mostrar lista de proyectos",
                 "img" => "img/proyectos.png",
                 "action" => "projects",
-                "url" => "/projects"
+                "url" => route('projects.index')
             ],
 
             "courses" => [
@@ -51,7 +51,7 @@ class MainController extends Controller
                 "description" => "Mostrar lista de cursos",
                 "img" => "img/cursos.png",
                 "action" => "courses",
-                "url" => "#"
+                "url" => route('courses.index')
             ],
 
         ];

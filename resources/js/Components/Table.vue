@@ -43,7 +43,7 @@ const edit = (id) => { //funcion para editar
 }
 
 const add = () => { //funcion para añadir
-    router.get(route(props.model.routes.create));
+    router.get(route(props.model.routes.create, props.model.create_params || {}));
 }
 
 </script>

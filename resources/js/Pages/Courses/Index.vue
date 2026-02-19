@@ -3,20 +3,20 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import Table from '@/Components/Table.vue';
 
-defineProps({
-    students: Array,
+const props = defineProps({
+    rows: Array,
     fields: Object,
     model: Object
 });
 </script>
 
 <template>
-    <Head title="Estudiantes" />
+    <Head title="Cursos" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Tabla de Estudiantes
+                Gestión de Cursos
             </h2>
         </template>
 
@@ -24,9 +24,9 @@ defineProps({
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <Table :rows="students" :fields="fields" :model="model" />
-                        <div v-if="students.length === 0" class="text-center py-4 text-gray-500">
-                            No hay estudiantes registrados.
+                        <Table :rows="rows" :fields="fields" :model="model" />
+                        <div v-if="rows.length === 0" class="text-center py-4 text-gray-500">
+                            No hay cursos registrados.
                         </div>
                     </div>
                 </div>
@@ -34,3 +34,6 @@ defineProps({
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+</style>

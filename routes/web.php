@@ -41,5 +41,6 @@ Route::get("teachers", [UserController::class, "getTeachers"])->name("teachers.i
 Route::resource('users', UserController::class);
 
 
+Route::resource('courses', \App\Http\Controllers\CourseController::class);
 
 require __DIR__ . '/auth.php';

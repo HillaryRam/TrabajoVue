@@ -14,7 +14,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return Inertia::render('Users/Index', [
+            'users' => $users,
+            'fields' => ['name' => 'Nombre', 'email' => 'Email'],
+            'model' => [
+                'name' => 'usuario',
+                'create_params' => [],
+                'routes' => [
+                    'create' => 'users.create',
+                    'edit' => 'users.edit',
+                    'delete' => 'users.destroy'
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -22,12 +35,29 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Users/Create', [
+            'role' => request('role')
+        ]);
     }
 
     public function store(StoreUserRequest $request)
     {
-        User::create($request->validated());
+        $validated = $request->validated();
+
+        $role = $validated['role'] ?? null;
+        unset($validated['role']);
+
+        $user = User::create($validated);
+
+        if ($role) {
+            $user->assignRole($role);
+            if ($role === 'estudiante') {
+                return redirect()->route('students.index');
+            } elseif ($role === 'profesor') {
+                return redirect()->route('teachers.index');
+            }
+        }
+
         return redirect()->route('users.index');
     }
 
@@ -48,7 +78,7 @@ class UserController extends Controller
             return redirect()->route('teachers.index');
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('users.index');
     }
 
     public function destroy(User $user)
@@ -64,7 +94,8 @@ class UserController extends Controller
             'students' => $students,
             'fields' => ['name' => 'Nombre', 'email' => 'Email'],
             'model' => [
-                'name' => 'student',
+                'name' => 'estudiante',
+                'create_params' => ['role' => 'estudiante'],
                 'routes' => [
                     'create' => 'users.create',
                     'edit' => 'users.edit',
@@ -81,7 +112,8 @@ class UserController extends Controller
             'teachers' => $teachers,
             'fields' => ['name' => 'Nombre', 'email' => 'Email'],
             'model' => [
-                'name' => 'teacher',
+                'name' => 'profesor',
+                'create_params' => ['role' => 'profesor'],
                 'routes' => [
                     'create' => 'users.create',
                     'edit' => 'users.edit',
