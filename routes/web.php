@@ -32,9 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get("projects", function () {
-    return Inertia::render("Projects/Index");
-});
+Route::resource('projects', \App\Http\Controllers\ProjectController::class);
 
 Route::get("students", [UserController::class, "getStudents"])->name("students.index");
 

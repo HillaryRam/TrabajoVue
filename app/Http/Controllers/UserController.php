@@ -41,7 +41,14 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
-        return redirect()->route('users.index');
+
+        if ($user->hasRole('estudiante')) {
+            return redirect()->route('students.index');
+        } elseif ($user->hasRole('profesor')) {
+            return redirect()->route('teachers.index');
+        }
+
+        return redirect()->route('dashboard');
     }
 
     public function destroy(User $user)
