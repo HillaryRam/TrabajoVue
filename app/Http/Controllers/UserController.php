@@ -10,6 +10,11 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    /**
+     * Gestión de Usuarios
+     * @return \Inertia\Response
+     * Método para mostrar, crear, guardar, editar, actualizar y eliminar
+     */
     public function index()
     {
         $users = User::all();
@@ -69,6 +74,10 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    /**
+     * Listado de Alumnos
+     * @return \Inertia\Response
+     */
     public function getStudents()
     {
         $students = User::role('estudiante')->get();
@@ -87,6 +96,10 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Listado de Profesores
+     * @return \Inertia\Response
+     */
     public function getTeachers()
     {
         $teachers = User::role('profesor')->get();
@@ -105,6 +118,10 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Listado de Cursos
+     * @return \Inertia\Response
+     */
     public function getCourses()
     {
         $courses = Course::all();
@@ -124,6 +141,12 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Gestión de Alumnos
+     * @param User $user
+     * @return \Inertia\Response
+     * Método para crear, guardar, editar, actualizar y eliminar
+     */
     public function createStudent()
     {
         return Inertia::render('Students/Create');
@@ -159,6 +182,12 @@ class UserController extends Controller
         return redirect()->route('students.index');
     }
 
+    /**
+     * Gestión de Profesores
+     * @param User $user
+     * @return \Inertia\Response
+     * Método para crear, guardar, editar, actualizar y eliminar
+     */
     public function createTeacher()
     {
         return Inertia::render('Teachers/Create');
