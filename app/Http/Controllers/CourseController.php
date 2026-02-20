@@ -28,9 +28,14 @@ class CourseController extends Controller
         ]);
     }
 
+
+
     public function create()
     {
-        return Inertia::render('Courses/Create');
+        $fieldsLabels = Course::fieldLabels();
+        return Inertia::render('Courses/Create', [
+            'fieldsLabels' => $fieldsLabels
+        ]);
     }
 
     public function store(Request $request)
@@ -45,8 +50,10 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
+        $fieldsLabels = Course::fieldLabels();
         return Inertia::render('Courses/Edit', [
-            'course' => $course
+            'course' => $course,
+            'fieldsLabels' => $fieldsLabels
         ]);
     }
 

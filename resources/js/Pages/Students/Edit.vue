@@ -1,15 +1,15 @@
 <script setup>
 import Layouts from '@/Layouts/Layouts.vue';
-import UserForm from '@/Components/UserForm.vue';
+import StudentForm from '@/Components/StudentForm.vue';
 
 const props = defineProps({
-    fieldsLabels: Object,
+    student: Object,
 });
 </script>
 
 <template>
     <Layouts>
-        <UserForm :fieldsLabels="fieldsLabels" />
+        <StudentForm :student="student" />
     </Layouts>
 </template>
 

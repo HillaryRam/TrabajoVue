@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Course;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $users = User::all();
@@ -35,28 +33,18 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Users/Create', [
-            'role' => request('role')
-        ]);
+        return Inertia::render('Users/Create');
     }
 
     public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
-
-        $role = $validated['role'] ?? null;
         unset($validated['role']);
 
         $user = User::create($validated);
-
-        if ($role) {
-            $user->assignRole($role);
-            if ($role === 'estudiante') {
-                return redirect()->route('students.index');
-            } elseif ($role === 'profesor') {
-                return redirect()->route('teachers.index');
-            }
-        }
+        // Default register as student if no role? Or just leave it without role if it's general?
+        // Let's assume general users for now, but keeping the user's logic of assigning 'estudiante' if they want.
+        $user->assignRole('estudiante');
 
         return redirect()->route('users.index');
     }
@@ -72,19 +60,13 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        if ($user->hasRole('estudiante')) {
-            return redirect()->route('students.index');
-        } elseif ($user->hasRole('profesor')) {
-            return redirect()->route('teachers.index');
-        }
-
         return redirect()->route('users.index');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->back();
+        return redirect()->route('users.index');
     }
 
     public function getStudents()
@@ -97,9 +79,9 @@ class UserController extends Controller
                 'name' => 'estudiante',
                 'create_params' => ['role' => 'estudiante'],
                 'routes' => [
-                    'create' => 'users.create',
-                    'edit' => 'users.edit',
-                    'delete' => 'users.destroy'
+                    'create' => 'students.create',
+                    'edit' => 'students.edit',
+                    'delete' => 'students.destroy'
                 ]
             ]
         ]);
@@ -115,11 +97,102 @@ class UserController extends Controller
                 'name' => 'profesor',
                 'create_params' => ['role' => 'profesor'],
                 'routes' => [
-                    'create' => 'users.create',
-                    'edit' => 'users.edit',
-                    'delete' => 'users.destroy'
+                    'create' => 'teachers.create',
+                    'edit' => 'teachers.edit',
+                    'delete' => 'teachers.destroy'
                 ]
             ]
         ]);
     }
+
+    public function getCourses()
+    {
+        $courses = Course::all();
+        $fieldsLabels = Course::fieldLabels();
+        return Inertia::render('Courses/Index', [
+            'rows' => $courses,
+            'fields' => $fieldsLabels,
+            'model' => [
+                'name' => 'curso',
+                'create_params' => [],
+                'routes' => [
+                    'create' => 'courses.create',
+                    'edit' => 'courses.edit',
+                    'delete' => 'courses.destroy'
+                ]
+            ]
+        ]);
+    }
+
+    public function createStudent()
+    {
+        return Inertia::render('Students/Create');
+    }
+
+    public function storeStudent(StoreUserRequest $request)
+    {
+        $validated = $request->validated();
+        unset($validated['role']);
+
+        $user = User::create($validated);
+        $user->assignRole('estudiante');
+
+        return redirect()->route('students.index');
+    }
+
+    public function editStudent(User $user)
+    {
+        return Inertia::render('Students/Edit', [
+            'student' => $user
+        ]);
+    }
+
+    public function updateStudent(UpdateUserRequest $request, User $user)
+    {
+        $user->update($request->validated());
+        return redirect()->route('students.index');
+    }
+
+    public function destroyStudent(User $user)
+    {
+        $user->delete();
+        return redirect()->route('students.index');
+    }
+
+    public function createTeacher()
+    {
+        return Inertia::render('Teachers/Create');
+    }
+
+    public function storeTeacher(StoreUserRequest $request)
+    {
+        $validated = $request->validated();
+        unset($validated['role']);
+
+        $user = User::create($validated);
+        $user->assignRole('profesor');
+
+        return redirect()->route('teachers.index');
+    }
+
+    public function editTeacher(User $user)
+    {
+        return Inertia::render('Teachers/Edit', [
+            'teacher' => $user
+        ]);
+    }
+
+    public function updateTeacher(UpdateUserRequest $request, User $user)
+    {
+        $user->update($request->validated());
+        return redirect()->route('teachers.index');
+    }
+
+    public function destroyTeacher(User $user)
+    {
+        $user->delete();
+        return redirect()->route('teachers.index');
+    }
+
+
 }

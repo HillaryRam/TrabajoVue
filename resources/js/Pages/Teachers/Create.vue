@@ -1,6 +1,6 @@
 <script setup>
 import Layouts from '@/Layouts/Layouts.vue';
-import UserForm from '@/Components/UserForm.vue';
+import TeacherForm from '@/Components/TeacherForm.vue';
 
 const props = defineProps({
     fieldsLabels: Object,
@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
     <Layouts>
-        <UserForm :fieldsLabels="fieldsLabels" />
+        <TeacherForm :fieldsLabels="fieldsLabels" />
     </Layouts>
 </template>
 
